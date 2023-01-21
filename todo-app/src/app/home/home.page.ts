@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
 	styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+	public todos: Array<any> = [];
+
 	constructor() {}
+
+	public addTodo() {
+		console.log('Todo added');
+		this.todos.push({
+			name: 'Test',
+		});
+	}
 }
