@@ -1,5 +1,5 @@
 import { AddTodoModalComponent } from './../components/modal/add-todo-modal/add-todo-modal.component';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -9,8 +9,6 @@ import { ModalController } from '@ionic/angular';
 })
 export class HomePage {
 	public todos: Array<any> = [];
-
-	// @ViewChild('addModal') addModal: IonModal;
 
 	constructor(private modalCtrl: ModalController) {}
 
