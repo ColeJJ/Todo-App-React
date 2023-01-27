@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { IonModal } from '@ionic/angular';
 
 @Component({
 	selector: 'app-home',
@@ -8,6 +9,8 @@ import { Component } from '@angular/core';
 export class HomePage {
 	public todos: Array<any> = [];
 
+	// @ViewChild('addModal') addModal: IonModal;
+
 	constructor() {}
 
 	public addTodo() {
@@ -16,4 +19,6 @@ export class HomePage {
 			name: 'Test',
 		});
 	}
+
+	public openAddModal() {}
 }
