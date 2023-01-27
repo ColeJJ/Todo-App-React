@@ -15,7 +15,6 @@ export class AddTodoModalComponent {
 		return this.modalCtrl.dismiss(this.description, 'confirm');
 	}
 
-	// todo: do we actually need this here since we dont have a button herefor yet
 	public cancel() {
 		return this.modalCtrl.dismiss(null, 'cancel');
 	}

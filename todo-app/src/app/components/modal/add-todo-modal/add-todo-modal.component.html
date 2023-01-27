@@ -1,5 +1,6 @@
 <ion-content>
 	<ion-label position="stacked">Add Todo</ion-label>
 	<ion-input [(ngModel)]="description" placeholder="Task Name"></ion-input>
-	<ion-button class="modal-add-button" (click)="confirm()">Add</ion-button>
+	<ion-button class="button" (click)="confirm()">Add</ion-button>
+	<ion-button class="button" (click)="cancel()">Cancel</ion-button>
 </ion-content>
