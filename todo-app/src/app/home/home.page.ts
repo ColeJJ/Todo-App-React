@@ -1,5 +1,6 @@
+import { AddTodoModalComponent } from './../components/modal/add-todo-modal/add-todo-modal.component';
 import { Component, ViewChild } from '@angular/core';
-import { IonModal } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 
 @Component({
 	selector: 'app-home',
@@ -11,7 +12,7 @@ export class HomePage {
 
 	// @ViewChild('addModal') addModal: IonModal;
 
-	constructor() {}
+	constructor(private modalCtrl: ModalController) {}
 
 	public addTodo() {
 		console.log('Todo added');
@@ -20,5 +21,12 @@ export class HomePage {
 		});
 	}
 
-	public openAddModal() {}
+	async openAddTodoModal() {
+		const modal = await this.modalCtrl.create({
+			component: AddTodoModalComponent,
+			cssClass: 'custom-popover',
+		});
+
+		await modal.present();
+	}
 }
