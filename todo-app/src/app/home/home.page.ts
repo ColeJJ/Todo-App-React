@@ -12,10 +12,9 @@ export class HomePage {
 
 	constructor(private modalCtrl: ModalController) {}
 
-	public addTodo() {
-		console.log('Todo added');
+	public addTodo(name: string) {
 		this.todos.push({
-			name: 'Test',
+			name: name,
 		});
 	}
 
@@ -26,5 +25,11 @@ export class HomePage {
 		});
 
 		await modal.present();
+
+		const { data, role } = await modal.onWillDismiss();
+
+		if (role === 'confirm') {
+			this.addTodo(data);
+		}
 	}
 }
