@@ -1,6 +1,6 @@
 import { AddTodoModalComponent } from './../components/modal/add-todo-modal/add-todo-modal.component';
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ItemReorderEventDetail, ModalController } from '@ionic/angular';
 
 @Component({
 	selector: 'app-home',
@@ -31,5 +31,9 @@ export class HomePage {
 		if (role === 'confirm') {
 			this.addTodo(data);
 		}
+	}
+
+	handleReorder(ev: CustomEvent<ItemReorderEventDetail>) {
+		ev.detail.complete();
 	}
 }
