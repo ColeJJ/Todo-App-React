@@ -1,16 +1,17 @@
 import { AddTodoModalComponent } from './../components/modal/add-todo-modal/add-todo-modal.component';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ItemReorderEventDetail, ModalController } from '@ionic/angular';
+import { SupabaseService } from '../services/supabase.service';
 
 @Component({
 	selector: 'app-home',
 	templateUrl: 'home.page.html',
 	styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 	public todos: Array<any> = [];
 
-	constructor(private modalCtrl: ModalController) {}
+	constructor(private modalCtrl: ModalController, private supabaseService: SupabaseService) {}
 
 	public addTodo(name: string) {
 		this.todos.push({
@@ -36,4 +37,10 @@ export class HomePage {
 	handleReorder(ev: CustomEvent<ItemReorderEventDetail>) {
 		ev.detail.complete();
 	}
+
+  ngOnInit(): void {
+    // todo: hier muss die response noch in ein array umgewandelt werden 
+    const resp = this.supabaseService.getTodos();
+    // this.todos = this.supabaseService.getTodos(); 
+  }
 }
