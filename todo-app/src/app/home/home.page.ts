@@ -39,8 +39,13 @@ export class HomePage implements OnInit {
 	}
 
   ngOnInit(): void {
-    // todo: hier muss die response noch in ein array umgewandelt werden 
-    const resp = this.supabaseService.getTodos();
-    // this.todos = this.supabaseService.getTodos(); 
+    this.supabaseService.getTodos().then((result) => {
+      if(result != null){
+        // todo: das hier ist null, warum, weil in der DB sind doch records?? 
+        this.todos = result;
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 }

@@ -19,7 +19,8 @@ export class SupabaseService {
     return this.supabase.from('todos').insert(todo);
   } 
 
-  getTodos() {
-    return this.supabase.from('todos').select('*');
+  async getTodos() {
+    const query = await this.supabase.from('todos').select('*');  
+    return query.data;
   }
 }
