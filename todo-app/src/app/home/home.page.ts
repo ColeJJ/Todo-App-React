@@ -13,12 +13,25 @@ export class HomePage implements OnInit {
 
 	constructor(private modalCtrl: ModalController, private supabaseService: SupabaseService) {}
 
-	public addTodo(name: string) {
-		this.todos.push({
-			name: name,
-		});
+  private loadTodos() {
+    this.supabaseService.getTodos().then((result) => {
+      if(result != null){
+        this.todos = result;
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+	public addTodo(description: string) {
+    this.supabaseService.createTodo(description).then(() => {
+      this.loadTodos(); 
+    }).catch((error) => {
+      console.log(error);
+    });
 	}
 
+  // modal functions
 	async openAddTodoModal() {
 		const modal = await this.modalCtrl.create({
 			component: AddTodoModalComponent,
@@ -34,17 +47,13 @@ export class HomePage implements OnInit {
 		}
 	}
 
+  // handlers
 	handleReorder(ev: CustomEvent<ItemReorderEventDetail>) {
 		ev.detail.complete();
 	}
 
+  // angular functions
   ngOnInit(): void {
-    this.supabaseService.getTodos().then((result) => {
-      if(result != null){
-        this.todos = result;
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
+    this.loadTodos();
   }
 }
