@@ -41,7 +41,6 @@ export class HomePage implements OnInit {
   ngOnInit(): void {
     this.supabaseService.getTodos().then((result) => {
       if(result != null){
-        // todo: das hier ist null, warum, weil in der DB sind doch records?? 
         this.todos = result;
       }
     }).catch((error) => {
