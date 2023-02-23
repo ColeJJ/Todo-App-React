@@ -1,4 +1,7 @@
 <ion-item class="todo_container">
 	<ion-checkbox slot="start" class="todo_checkbox"></ion-checkbox>
 	<ion-label class="todo_label">{{ todoDescription }}</ion-label>
+	<button (click)="deleteTodo()">
+		<ion-icon name="trash"></ion-icon>
+	</button>
 </ion-item>

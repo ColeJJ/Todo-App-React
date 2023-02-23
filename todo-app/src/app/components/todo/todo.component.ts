@@ -11,4 +11,8 @@ export class TodoComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit() {}
+
+	public deleteTodo() {
+		console.log('delete this todo: ');
+	}
 }
