@@ -8,7 +8,10 @@
 	<div class="content-task-container">
 		<span class="content-task-header">Today tasks</span>
 		<div *ngFor="let todo of todos" class="todo-container">
-			<app-todo [todoDescription]="todo.description"></app-todo>
+			<app-todo
+				[id]="todo.id"
+				[description]="todo.description"
+			></app-todo>
 		</div>
 	</div>
 </ion-content>

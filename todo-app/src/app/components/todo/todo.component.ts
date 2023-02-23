@@ -1,3 +1,4 @@
+import { SupabaseService } from './../../services/supabase.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -6,13 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
 	styleUrls: ['./todo.component.scss'],
 })
 export class TodoComponent implements OnInit {
-	@Input('todoDescription') todoDescription: String | undefined;
+	@Input('id') id: number | undefined;
+	@Input('description') description: string | undefined;
 
-	constructor() {}
+	constructor(private SupabaseService: SupabaseService) {}
 
 	ngOnInit() {}
 
 	public deleteTodo() {
-		console.log('delete this todo: ');
+		console.log('delete this todo: ' + this.id);
 	}
 }
