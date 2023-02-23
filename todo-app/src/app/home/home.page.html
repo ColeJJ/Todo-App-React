@@ -11,6 +11,7 @@
 			<app-todo
 				[id]="todo.id"
 				[description]="todo.description"
+				(onDelete)="reloadPage()"
 			></app-todo>
 		</div>
 	</div>

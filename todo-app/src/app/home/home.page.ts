@@ -40,6 +40,11 @@ export class HomePage implements OnInit {
 			});
 	}
 
+	public reloadPage() {
+		this.loadTodos();
+		location.reload();
+	}
+
 	// modal functions
 	async openAddTodoModal() {
 		const modal = await this.modalCtrl.create({
