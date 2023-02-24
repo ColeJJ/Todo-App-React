@@ -41,4 +41,18 @@ export class SupabaseService {
 		const query = await this.supabase.from('todos').delete().eq('id', id);
 		return query;
 	}
+
+	async updateTodo(
+		id: number,
+		newDescription: string
+	): Promise<PostgrestSingleResponse<null>> {
+		const todo = {
+			description: newDescription,
+		};
+		const query = await this.supabase
+			.from('todos')
+			.update(todo)
+			.eq('id', id);
+		return query;
+	}
 }
