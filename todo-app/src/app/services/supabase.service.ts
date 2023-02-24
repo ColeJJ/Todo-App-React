@@ -44,7 +44,7 @@ export class SupabaseService {
 
 	async updateTodo(
 		id: number,
-		newDescription: string
+		newDescription: string | null
 	): Promise<PostgrestSingleResponse<null>> {
 		const todo = {
 			description: newDescription,

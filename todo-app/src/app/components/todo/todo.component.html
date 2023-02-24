@@ -1,4 +1,4 @@
-<ion-item class="todo_container">
+<ion-item class="todo_container" (click)="openEditModal()">
 	<ion-checkbox slot="start" class="todo_checkbox"></ion-checkbox>
 	<ion-label class="todo_label">{{ description }}</ion-label>
 	<button (click)="deleteTodo()">

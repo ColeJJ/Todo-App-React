@@ -1,0 +1,10 @@
+<ion-content>
+	<ion-toolbar>
+		<ion-title>Modal</ion-title>
+		<ion-buttons slot="end">
+			<ion-button color="light" (click)="save()">Save</ion-button>
+			<ion-button color="light" (click)="close()">Close</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+	<ion-input [(ngModel)]="description" placeholder="Task Name"></ion-input>
+</ion-content>

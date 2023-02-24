@@ -51,11 +51,8 @@ export class HomePage implements OnInit {
 			component: AddTodoModalComponent,
 			cssClass: 'custom-popover',
 		});
-
 		await modal.present();
-
 		const { data, role } = await modal.onWillDismiss();
-
 		if (role === 'confirm') {
 			this.addTodo(data);
 		}

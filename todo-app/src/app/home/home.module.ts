@@ -1,3 +1,4 @@
+import { EditTodoModalComponent } from './../components/modal/edit-todo-modal/edit-todo-modal.component';
 import { AddTodoModalComponent } from './../components/modal/add-todo-modal/add-todo-modal.component';
 import { TodoComponent } from './../components/todo/todo.component';
 import { NgModule } from '@angular/core';
@@ -10,6 +11,11 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 @NgModule({
 	imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
-	declarations: [HomePage, TodoComponent, AddTodoModalComponent],
+	declarations: [
+		HomePage,
+		TodoComponent,
+		AddTodoModalComponent,
+		EditTodoModalComponent,
+	],
 })
 export class HomePageModule {}
