@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
 	createClient,
-	PostgrestResponse,
 	PostgrestSingleResponse,
 	SupabaseClient,
 } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 
 const TODO_TABLE = 'todos';
+const ID = 'id';
 
 @Injectable({
 	providedIn: 'root',
@@ -23,7 +23,7 @@ export class SupabaseService {
 	}
 
 	async getTodos() {
-		const query = await this.supabase.from('todos').select('*');
+		const query = await this.supabase.from(TODO_TABLE).select('*');
 		return query.data;
 	}
 
@@ -33,12 +33,12 @@ export class SupabaseService {
 		const todo = {
 			description: description,
 		};
-		const query = await this.supabase.from('todos').insert(todo);
+		const query = await this.supabase.from(TODO_TABLE).insert(todo);
 		return query;
 	}
 
 	async deleteTodo(id: number): Promise<PostgrestSingleResponse<null>> {
-		const query = await this.supabase.from('todos').delete().eq('id', id);
+		const query = await this.supabase.from(TODO_TABLE).delete().eq(ID, id);
 		return query;
 	}
 
@@ -50,9 +50,9 @@ export class SupabaseService {
 			description: newDescription,
 		};
 		const query = await this.supabase
-			.from('todos')
+			.from(TODO_TABLE)
 			.update(todo)
-			.eq('id', id);
+			.eq(ID, id);
 		return query;
 	}
 }
