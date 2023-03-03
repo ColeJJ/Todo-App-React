@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
 	AuthError,
 	AuthResponse,
@@ -13,7 +14,7 @@ import { environment } from '../../environments/environment';
 export class AuthService {
 	private supabase: SupabaseClient;
 
-	constructor() {
+	constructor(private router: Router) {
 		this.supabase = createClient(
 			environment.supabaseURL,
 			environment.supabaseKey
@@ -29,8 +30,10 @@ export class AuthService {
 		return query;
 	}
 
-	async signOut(): Promise<{ error: AuthError | null }> {
-		const query = await this.supabase.auth.signOut();
-		return query;
+	async signOut() {
+		const { error } = await this.supabase.auth.signOut();
+		if (!error) {
+			this.router.navigateByUrl('/', { replaceUrl: true });
+		}
 	}
 }
