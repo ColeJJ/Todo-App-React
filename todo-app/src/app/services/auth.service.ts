@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-	AuthError,
 	AuthResponse,
 	createClient,
 	SupabaseClient,
 } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 
+const PROFILE = 'profiles';
+
 @Injectable({
 	providedIn: 'root',
 })
 export class AuthService {
 	private supabase: SupabaseClient;
+	private currentUser: any;
 
 	constructor(private router: Router) {
 		this.supabase = createClient(
@@ -21,13 +23,21 @@ export class AuthService {
 		);
 	}
 
-	async signInWithEmail(user: any): Promise<AuthResponse> {
-		const query = await this.supabase.auth.signInWithPassword({
+	async getProfile() {
+		return await this.supabase
+			.from(PROFILE)
+			.select('username, website, avatar_url')
+			.eq('id', this.currentUser?.id)
+			.single();
+	}
+
+	async signInWithEmail(user: any) {
+		const authResponse = await this.supabase.auth.signInWithPassword({
 			email: user.email,
 			password: user.password,
 		});
 
-		return query;
+		this.currentUser = authResponse?.data.user;
 	}
 
 	async signOut() {
