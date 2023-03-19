@@ -22,10 +22,11 @@ export class LoginPage implements OnInit {
 			password: this.password,
 		};
 		this.authSevice.signIn(credentials).then((resp) => {
-			if (resp.error) {
-				console.log(resp.error.message);
+			if (!resp.error) {
+        this.router.navigateByUrl('/home', {replaceUrl: true})
+        console.log(resp.data.user);
 			} else {
-				console.log(resp.data.user);
+        console.log(resp.error.message);
 			}
 		});
 		await this.authSevice.signOut();
