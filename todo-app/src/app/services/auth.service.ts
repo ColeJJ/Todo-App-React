@@ -1,43 +1,55 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-	AuthResponse,
-	createClient,
-	SupabaseClient,
+  AuthResponse,
+  createClient,
+  SignInWithPasswordCredentials,
+  SupabaseClient,
 } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
-
-const PROFILE = 'profiles';
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
 	providedIn: 'root',
 })
 export class AuthService {
 	private supabase: SupabaseClient;
-	private currentUser: any;
+	private currentUser: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
 	constructor(private router: Router) {
 		this.supabase = createClient(
 			environment.supabaseURL,
 			environment.supabaseKey
 		);
+
+    this.loadLoggedUser();
+
+    this.supabase.auth.onAuthStateChange((event, sess) => {
+      if(event === 'SIGNED_IN') {
+        this.currentUser.next(sess?.user);
+      } else {
+        this.currentUser.next(false)
+      }
+    })
+
 	}
 
-	async getProfile() {
-		return await this.supabase
-			.from(PROFILE)
-			.select('username, website, avatar_url')
-			.eq('id', this.currentUser?.id)
-			.single();
-	}
+  private loadLoggedUser() {
+    const user = this.supabase.auth.getUser();
 
-	async signInWithEmail(user: any) {
-		const authResponse = await this.supabase.auth.signInWithPassword({
-			email: user.email,
-			password: user.password,
-		});
+    if(user) {
+      this.currentUser.next(user);
+    } else {
+      this.currentUser.next(false);
+    }
+  }
 
-		this.currentUser = authResponse?.data.user;
+	async signIn(credentials: SignInWithPasswordCredentials): Promise<AuthResponse> {
+		const authResponse = await this.supabase.auth.signInWithPassword(credentials);
+		if (!authResponse.error) {
+			this.currentUser.next(authResponse?.data.user);
+		}
+		return authResponse;
 	}
 
 	async signOut() {
@@ -46,4 +58,12 @@ export class AuthService {
 			this.router.navigateByUrl('/', { replaceUrl: true });
 		}
 	}
+
+  async signUp(credentials: SignInWithPasswordCredentials) {
+    const {error} = await this.supabase.auth.signUp(credentials);
+    if (!error) {
+      this.router.navigateByUrl('/home', { replaceUrl: true })
+    }
+  }
+
 }

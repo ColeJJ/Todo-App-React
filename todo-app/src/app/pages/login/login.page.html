@@ -1,0 +1,35 @@
+<ion-content>
+	<div class="ion-padding">
+		<h1>Login</h1>
+		<p>Sign in via email</p>
+	</div>
+	<ion-list inset="true">
+		<form (ngSubmit)="handleLogin()">
+			<ion-item>
+				<ion-label position="stacked">Email</ion-label>
+				<ion-input
+					[(ngModel)]="email"
+					name="email"
+          inputmode="email"
+          autocomplete="true"
+          placeholder="yourmail@provider.com"
+					type="string"
+				></ion-input>
+				<ion-label position="stacked">Password</ion-label>
+				<ion-input
+					[(ngModel)]="password"
+					name="password"
+					autocomplete="true"
+          placeholder="******"
+					type="string"
+				></ion-input>
+			</ion-item>
+			<div class="ion-text-center">
+				<ion-button type="submit" fill="clear">Login</ion-button>
+			</div>
+		</form>
+    <div class="ion-text-center">
+      <ion-button type="submit" fill="clear" (click)="navToSignUp()">SignUp</ion-button>
+    </div>
+	</ion-list>
+</ion-content>
