@@ -1,7 +1,9 @@
-import { AddTodoModalComponent } from './../components/modal/add-todo-modal/add-todo-modal.component';
+import { AddTodoModalComponent } from '../components/modal/add-todo-modal/add-todo-modal.component';
 import { Component, OnInit } from '@angular/core';
-import { ItemReorderEventDetail, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { SupabaseService } from '../services/supabase.service';
+import {AuthService} from "../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-home',
@@ -13,7 +15,9 @@ export class HomePage implements OnInit {
 
 	constructor(
 		private modalCtrl: ModalController,
-		private supabaseService: SupabaseService
+		private supabaseService: SupabaseService,
+    private authService: AuthService,
+    private router: Router
 	) {}
 
 	private loadTodos() {
@@ -58,12 +62,17 @@ export class HomePage implements OnInit {
 		}
 	}
 
-	// handlers
-	handleReorder(ev: CustomEvent<ItemReorderEventDetail>) {
-		ev.detail.complete();
-	}
+  signOut() {
+    this.authService.signOut().then(() => {
+      this.router.navigateByUrl('/login', {replaceUrl: true}).then(() => {
+        console.log('Successfully navigated!')
+      }).catch((error) => {
+        console.log(error);
+      })
+    });
+  }
 
-	// angular functions
+  // angular functions
 	ngOnInit(): void {
 		this.loadTodos();
 	}
