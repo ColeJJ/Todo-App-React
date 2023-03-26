@@ -17,15 +17,19 @@
           required="true"
           formControlName="email"
 				></ion-input>
+      </ion-item>
+      <ion-item>
 				<ion-label position="stacked">Password</ion-label>
 				<ion-input
+          #passwordInput
 					[(ngModel)]="password"
 					name="password"
           placeholder="******"
-					type="password"
+					[type]="showPassword ? 'text' : 'password'"
           required="true"
           formControlName="password"
 				></ion-input>
+        <ion-icon icon="eye" slot="end" (click)="togglePassword()"></ion-icon>
 			</ion-item>
 			<div class="ion-text-center">
 				<ion-button type="submit" fill="clear" [disabled]="!loginForm.valid">Login</ion-button>

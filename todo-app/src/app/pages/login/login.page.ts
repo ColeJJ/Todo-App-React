@@ -1,6 +1,6 @@
 import { SignInWithPasswordCredentials } from '@supabase/supabase-js';
 import { AuthService } from '../../services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
@@ -13,6 +13,8 @@ export class LoginPage implements OnInit {
 	public email!: string;
 	public password!: string;
   public loginForm!: FormGroup;
+  public showPassword: boolean = false;
+
 
 	constructor(private authSevice: AuthService, private router: Router, private formBuilder: FormBuilder) {}
 
@@ -39,6 +41,10 @@ export class LoginPage implements OnInit {
       });
     }
 	}
+
+  public togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
   public navToSignUp() {
     this.router.navigateByUrl("/signup", {replaceUrl: true}).then(() => {
